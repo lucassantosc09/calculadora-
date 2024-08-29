@@ -78,35 +78,58 @@ void decimalBCD(int numero){
   printf("Os dígitos são combinados para formar o BCD.\n");
   }
 
-
+//codigo alterado constantemente no replit, codigo final(29/08)
 void decimalComplementoDe2(int numero) {
-int complemento2[16];
-int i;
+    if (numero >= 0) {
+        printf("\nErro: O complemento de 2 só é válido para números negativos.\n");
+        return;
+    }
+  
+  int complemento2[16];
+    int i;
 
-unsigned short numeroPositivo = (numero >= 0) ? numero : -numero;
-unsigned short valor = numeroPositivo;
+    unsigned short numeroPositivo = (numero >= 0) ? numero : -numero;
+    unsigned short valor = numeroPositivo;
 
-printf("\nPasso a passo da conversão para Binário (Complemento de 2 com 16 bits):\n");
-  for (i = 15; i >= 0; i--) {
-   complemento2[i] = valor % 2;//armazena os binarios 
-   valor = valor / 2;
-  }
+    printf("\nPasso a passo da conversão para Binário (Complemento de 2 com 16 bits):\n");
 
-  if (numero < 0) {
-   for (i = 0; i < 16; i++) {
-   complemento2[i] = complemento2[i] == 0 ? 1 : 0;//invertendo
-   }
-        // Adicionar 1 ao resultado
-   for (i = 15; i >= 0; i--) {
-    if (complemento2[i] == 1) {//processo de soma 
-    complemento2[i] = 0;
-    } else {
-    complemento2[i] = 1;
-    break;
-         }
-     }
-}
-    printf("Número %d em complemento de 2 (16 bits) é: ",numero);
+ 
+    printf("\n1. Representação binária do valor absoluto (%d):\n", numeroPositivo);
+    for (i = 15; i >= 0; i--) {
+        complemento2[i] = valor % 2; 
+        valor = valor / 2;
+    }
+    for (i = 0; i < 16; i++) {
+        printf("%d", complemento2[i]);
+    }
+    printf("\n");
+
+    if (numero < 0) {
+    
+        printf("\n2. Inversão dos bits (complemento de 1):\n");
+        for (i = 0; i < 16; i++) {
+            complemento2[i] = complemento2[i] == 0 ? 1 : 0; 
+            printf("%d", complemento2[i]);
+        }
+        printf("\n");
+
+   
+        printf("\n3. Adição de 1 ao complemento de 1 para obter o complemento de 2:\n");
+        for (i = 15; i >= 0; i--) {
+            if (complemento2[i] == 0) {
+                complemento2[i] = 1; 
+                break;
+            } else {
+                complemento2[i] = 0; 
+            }
+        }
+        for (i = 0; i < 16; i++) {
+            printf("%d", complemento2[i]);
+        }
+        printf("\n");
+    }
+
+    printf("\nNúmero %d em complemento de 2 (16 bits) é: ", numero);
     for (i = 0; i < 16; i++) {
         printf("%d", complemento2[i]);
     }
