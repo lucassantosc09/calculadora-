@@ -135,18 +135,92 @@ void decimalComplementoDe2(int numero) {
     }
     printf("\n");
 }
+//codigo feito dia 29/08 
+void mostrarBitsFloat(float numero) {
+    unsigned int bits;
+    memcpy(&bits, &numero, sizeof(float));
 
+    int sinal = (bits >> 31) & 1;
+    int expoente = (bits >> 23) & 0xFF;
+    int fracao = bits & 0x7FFFFF;
+    int expoenteComVies = expoente - 127;
+
+    printf("\nRepresentação em float:\n");
+    printf("Sinal: %d\n", sinal);
+    printf("Expoente (sem viés): %d\n", expoenteComVies);
+    printf("Expoente (com viés): %d\n", expoente);
+    printf("Fração: 0x%X\n", fracao);
+}
+
+void mostrarBitsDouble(double numero) {
+    unsigned long long bits;
+    memcpy(&bits, &numero, sizeof(double));
+
+    int sinal = (bits >> 63) & 1;
+    int expoente = (bits >> 52) & 0x7FF;
+    long long fracao = bits & 0xFFFFFFFFFFFFF;
+    int expoenteComVies = expoente - 1023;
+
+    printf("\nRepresentação em double:\n");
+    printf("Sinal: %d\n", sinal);
+    printf("Expoente (sem viés): %d\n", expoenteComVies);
+    printf("Expoente (com viés): %d\n", expoente);
+    printf("Fração: 0x%llX\n", fracao);
+}
 
 int main(void) {
-  int numero;
+    int numero, opcao;
+    float numeroFloat;
+    double numeroDouble;
 
-  printf("Digite um número em base 10: ");
-  scanf("%d", &numero);
+    printf("Digite um número em base 10 (inteiro ou real): ");
+    scanf("%lf", &numeroDouble);
+    numeroFloat = (float)numeroDouble;
+    numero = (int)numeroDouble;
 
-  decimalBinario(numero);
-  decimalOctal(numero);
-  decimalHexadecimal(numero);
-  decimalBCD(numero);
-  decimalComplementoDe2(numero);
-  return 0;
+    do {
+        printf("\nEscolha uma opção de conversão:\n");
+        printf("1. Converter para Binário\n");
+        printf("2. Converter para Octal\n");
+        printf("3. Converter para Hexadecimal\n");
+        printf("4. Converter para BCD\n");
+        printf("5. Converter para Complemento de 2 (16 bits)\n");
+        printf("6. Mostrar bits de float\n");
+        printf("7. Mostrar bits de double\n");
+        printf("8. Sair\n");
+        printf("Opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                decimalBinario(numero);
+                break;
+            case 2:
+                decimalOctal(numero);
+                break;
+            case 3:
+                decimalHexadecimal(numero);
+                break;
+            case 4:
+                decimalBCD(numero);
+                break;
+            case 5:
+                decimalComplementoDe2(numero);
+                break;
+            case 6:
+                mostrarBitsFloat(numeroFloat);
+                break;
+            case 7:
+                mostrarBitsDouble(numeroDouble);
+                break;
+            case 8:
+                printf("Encerrou\n");
+                break;
+            default:
+                printf("Opção inválida! Tente novamente.\n");
+        }
+    } while (opcao != 8);
+
+    return 0;
 }
+
