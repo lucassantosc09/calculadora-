@@ -78,12 +78,8 @@ void decimalBCD(int numero){
   printf("Os dígitos são combinados para formar o BCD.\n");
   }
 
-//codigo alterado constantemente no replit, codigo final(29/08)
+//codigo alterado constantemente no replit, codigo final(30/08)
 void decimalComplementoDe2(int numero) {
-    if (numero >= 0) {
-        printf("\nErro: O complemento de 2 só é válido para números negativos.\n");
-        return;
-    }
   
   int complemento2[16];
     int i;
